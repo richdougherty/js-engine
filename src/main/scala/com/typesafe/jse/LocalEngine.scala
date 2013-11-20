@@ -22,7 +22,7 @@ class LocalEngine(stdArgs: Seq[String]) extends Engine {
       lb ++= stdArgs
       lb += f.getCanonicalPath
       lb ++= args
-      context.actorOf(BlockingProcess.props(lb.to[immutable.Seq], self))
+      context.actorOf(BlockingProcess.props(lb.to[immutable.Seq], self), "process")
       expectOnce {
         case Started(i, o, e) => new EngineIOHandler(o, e, requester, Ack, timeout, timeoutExitValue)
       }
